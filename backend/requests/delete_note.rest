@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/api/notes/603d1acef365760004b71b48
