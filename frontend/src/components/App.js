@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Note from './Note';
+import NoteAdd from './Note_add';
 import Error from './Error';
+import Login from './Login';
 import noteService from '../services/notes';
-import loginService from '../services/login';
 
 const Footer = () => {
   const footerStyle= {
@@ -46,13 +47,22 @@ const App = (props) => {
   }, []);
   console.log('render', notes.length, 'notes');
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user);
+      noteService.setToken(user.token);
+    }
+  }, [])
+
   const addNote = (event) => {
     event.preventDefault();
+    console.log(user);
     const noteObject = {
       content: newNote,
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
-      id: notes.length + 1,
     };
 
     noteService
@@ -62,58 +72,6 @@ const App = (props) => {
         setNewNote('');
       });
   };
-  
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-            />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-            />
-      </div>
-      <button type="submit">Login</button>
-    </form>
-  );
-
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input value={newNote} onChange={handleNoteChange} />
-      <button type="submit">save</button>
-    </form>
-  );
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-
-    try {
-      const user = await loginService({
-        username,
-        password,
-      });
-
-      console.log(user);
-      setUser(user);
-      setUsername('');
-      setPassword('');
-    } catch (exception) {
-      setErrorMessage('Wrong credentials');
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000);
-    }
-  }
 
   const toggleImportance = (id) => {
     const note = notes.find((n) => n.id === id);
@@ -141,11 +99,19 @@ const App = (props) => {
     <div>
       <h1>Notes</h1>
       <Error message={errorMessage} />
-      {user === null ? loginForm() : 
-        <div>
-          <p>{user.name} logged in</p>
-          {noteForm()}
-        </div>
+      {user === null 
+        ? <Login
+            setPassword={setPassword}
+            setUsername={setUsername}
+            username={username}
+            password={password}
+            setErrorMessage={setErrorMessage}
+            setUser={setUser}/>
+        : <NoteAdd 
+            handleNoteChange={handleNoteChange}
+            addNote={addNote}
+            newNote={newNote}
+          />
       }
       <div>
         <button onClick={() => setShowAll(!showAll)}>
