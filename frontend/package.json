@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.2",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "cypress": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
@@ -19,7 +19,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p3001 --watch db.json"
+    "server": "json-server -p3001 --watch db.json",
+    "eslint": "eslint .",
+    "cypress:open": "cypress open"
   },
   "proxy": "https://localhost:3001/api/notes",
   "eslintConfig": {
@@ -41,9 +43,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
     "eslint": "^7.21.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.9",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",

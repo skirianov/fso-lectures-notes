@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
 // eslint-disable-next-line react/prop-types
-const Error = ({message}) => {
-    if (message === null) {
-        return null;
-    }
+const Error = ({ message }) => {
+  if (message === null) {
+    return null
+  }
 
-    return (
-        <div className="error">
-            {message};
-        </div>
-    )
+  return (
+    <div className="error">
+      {message};
+    </div>
+  )
 }
 
-export default Error;
+export default Error
