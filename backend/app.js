@@ -36,6 +36,12 @@ app.use('/api/notes', notesRouter);
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
 
+if (process.env.NODE_ENV === 'test') {
+  // eslint-disable-next-line global-require
+  const testingRouter = require('./controllers/db_tests');
+  app.use('/api/testing', testingRouter);
+}
+
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 

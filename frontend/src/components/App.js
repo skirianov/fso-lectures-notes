@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react'
 import Note from './Note'
-import NoteAdd from './Note_add'
 import Error from './Error'
 import Login from './Login'
 import Togglable from './Togglable'
 import noteService from '../services/notes'
+import NoteForm from './Note_add'
 
 const Footer = () => {
   const footerStyle= {
@@ -89,7 +89,7 @@ const App = (props) => {
 
   const noteForm = () => (
     <Togglable buttonLabel="new note" ref={noteFormRef}>
-      <NoteAdd createNote={addNote}  />
+      <NoteForm createNote={addNote}  />
     </Togglable>
   )
 

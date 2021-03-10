@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 
-const NoteAdd = ({ createNote }) => {
-  const [newNote, setNewNote] = useState('a new note ...')
+const NoteForm = ({ createNote }) => {
+  const [newNote, setNewNote] = useState('')
 
-  const handleNoteChange = (event) => {
+  const handleChange = (event) => {
     setNewNote(event.target.value)
   }
 
@@ -12,22 +11,25 @@ const NoteAdd = ({ createNote }) => {
     event.preventDefault()
     createNote({
       content: newNote,
-      important: Math.random() < 0.5,
+      important: false,
     })
 
     setNewNote('')
   }
 
   return (
-    <div>
+    <div className="formDiv">
       <h2>Create a new note</h2>
 
       <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
+        <input
+          value={newNote}
+          onChange={handleChange}
+        />
         <button type="submit">save</button>
       </form>
     </div>
   )
 }
 
-export default NoteAdd
+export default NoteForm
